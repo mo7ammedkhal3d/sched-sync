@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-
+// import styled from 'styled-components';
+import styles from './CourseInput.module.css'
 import Button from '../../UI/Button/Button';
-import styled from 'styled-components';
-import './CourseInput.css';
+// import './CourseInput.css';
 
 //#region dynamic-style ways 
   // The are multi ways to style components in react 
@@ -11,38 +11,26 @@ import './CourseInput.css';
   // If there other components with the same class name then will conflict because the css files for components is combined togther 
   // and there are not scobed so ... there are another ways that become to solve this issus :
 
-  // * 1- by using the backage [styled-components] this backage is declear an object followed by any html elements that we need to applied style in it 
+  // * 1- By using the backage [styled-components] this backage is declear an object followed by any html elements that we need to applied style in it 
   //     like that were we used in this proeject then followed by string litealer [``] and in it but css code that we need to use and also we can add some logic 
   //    `by passing some props like we do in this project and accourding to it excute some css expersion this solve the proplem of dublicate classes name and 
   //     conflict duto un-scoped css files and also have some logic that offers for us not write more in-line style in tags and passing logic to css
+  //     In addition we can also applied media-query like we do in this project
+
+  // * 2- By using modules chat-gpt "In React, module styles refer to CSS Modules, 
+  //      a popular way to style components with scoped, locally-scoped styles. CSS Modules
+  //       allow you to create CSS files where the class names are locally scoped by default
+  //      , avoiding conflicts between class names across different components.
+  //        Advantages of CSS Modules in React
+  //       #Avoid Style Conflicts: With locally scoped classes, you don’t need to worry about accidentally overriding styles globally.
+  //       #Enhanced Readability: Each component has its CSS file, making the code more modular and easier to maintain.
+  //       #Conditional Styling: It’s easy to toggle classes based on component state, providing more control over the styling.
+  //       CSS Modules work out-of-the-box with tools like Create React App (CRA) and can be manually configured in Webpack if you’re using a custom React setup.
+  //       Would you like to know more about CSS Modules with a specific framework or how to implement conditional styles in complex components?"
+
 //#endregion
 
-const FormControl = styled.div`
-  margin: 0.5rem 0;
 
-  & label {
-    font-wight:bold;
-    display: block;
-    margin-bottom: 0.5rem;
-    color:${props => (props.invalid ? 'red':'black')};
-  }
-
-  & input {
-    display: block;
-    width: 100%;
-    border: 1px solid ${props => (props.invalid ? 'red': '#ccc')};
-    background:${props=>(props.invalid ? 'red':'black')};
-    font: inherit;
-    line-height: 1.5rem;
-    padding: 0 0.25rem;
-  }
-
-  & input:focus {
-    outline: none;
-    background: #fad0ec;
-    border-color: #8b005d;
-  }
-`;
 
 const CourseInput = props => {
 
@@ -79,12 +67,22 @@ const CourseInput = props => {
   //   </form>
   // );
   
+  // return (
+  //   <form onSubmit={formSubmitHandler}>
+  //     <FormControl invalid={!isValid}>
+  //       <label >Course Goal</label>
+  //       <input type="text" value={enteredValue} onChange={goalInputChangeHandler}/>
+  //     </FormControl> 
+  //     <Button type="submit">Add Goal</Button>
+  //   </form>
+  // );
+
   return (
     <form onSubmit={formSubmitHandler}>
-      <FormControl invalid={!isValid}>
+      <div  className={`${styles['form-control']} ${!isValid && styles.invalid}`}>
         <label >Course Goal</label>
         <input type="text" value={enteredValue} onChange={goalInputChangeHandler}/>
-      </FormControl> 
+      </div> 
       <Button type="submit">Add Goal</Button>
     </form>
   );
